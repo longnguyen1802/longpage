@@ -1,31 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:longpage/view/ServiceView/ViewVideo.dart';
 import 'package:longpage/view/SubPage/MainPage.dart';
-import 'package:longpage/view/SubPage/ViewPage.dart';
 
-void main() async {
+void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
+  // This widget is the root of your application.
   @override
-  _MyApp createState() => _MyApp();
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: MyHomePage(),
+    );
+  }
 }
 
-class _MyApp extends State<MyApp> {
+class MyHomePage extends StatefulWidget {
+  MyHomePage({Key? key}) : super(key: key);
+
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: Scaffold(body: MainPage()));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Demo"),
+      ),
+      body: MainPage(),
+    );
   }
 }

@@ -1,11 +1,27 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:longpage/view/ServiceView/ViewVideo.dart';
 import 'package:longpage/view/ServiceView/ViewYoutubeVideo.dart';
 import 'package:longpage/model/Model.dart';
+import 'dart:isolate';
+
+import 'package:video_player/video_player.dart';
+
+// bool isloading = false;
+// ViewVideo? video;
+// loadvideo(int x) {
+//   video = ViewVideo("assets/videos/nisekoi.mp4", "Nisekoi");
+//   isloading = true;
+//   print("Hahahahahahahahaha");
+// }
+Widget loadvideo(List<String?> argu) {
+  return ViewVideo(argu[0], argu[1]);
+}
 
 class DetailModel extends StatefulWidget {
   String type;
   final Model model;
+
   @override
   DetailModel(this.type, this.model);
 
@@ -16,11 +32,22 @@ class DetailModel extends StatefulWidget {
 class _DetailsState extends State<DetailModel> {
   Model? _model;
   double? _screenWidth;
-
+  ViewVideo? video;
+  bool isloading = false;
   @override
   void initState() {
     super.initState();
+    //Isolate.spawn(loadvideo, 5);
     _model = widget.model;
+    runCompute();
+  }
+
+  Future<void> runCompute() async {
+    video =
+        await compute(loadvideo, [widget.model.linkvideo, widget.model.title])
+            as ViewVideo;
+    isloading = true;
+    setState(() {});
   }
 
   @override
@@ -87,9 +114,7 @@ class _DetailsState extends State<DetailModel> {
                 left: 0.0,
                 width: _screenWidth,
                 height: 300.0,
-                child: (widget.type == "Anime")
-                    ? ViewVideo(_model!.linkvideo, _model!.title)
-                    : ViewYoutubeVideo(_model!.linkvideo, _model!.title))
+                child: !isloading ? Container() : video as ViewVideo)
           ],
         ),
       ),
