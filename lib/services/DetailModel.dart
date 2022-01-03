@@ -7,13 +7,6 @@ import 'dart:isolate';
 
 import 'package:video_player/video_player.dart';
 
-// bool isloading = false;
-// ViewVideo? video;
-// loadvideo(int x) {
-//   video = ViewVideo("assets/videos/nisekoi.mp4", "Nisekoi");
-//   isloading = true;
-//   print("Hahahahahahahahaha");
-// }
 Widget loadvideo(List<String?> argu) {
   return ViewVideo(argu[0], argu[1]);
 }
